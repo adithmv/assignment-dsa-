@@ -2,13 +2,18 @@
 
 Severity scores: `45, 72, 30, 90, 65, 50, 85`
 
-A higher score means a patient has higher priority. The solution is written in Python without code comments.
+A higher score means a patient has higher priority. The solution is written in C without code comments.
 
 ## Run the program
 
 ```text
-python assignment.py
+gcc -std=c11 -Wall -Wextra -pedantic assignment.c -o assignment
+./assignment
 ```
+
+On Windows PowerShell, compile with `-o assignment.exe` and run `.\assignment.exe`.
+
+Verified on Windows using Tiny C Compiler 0.9.27 with `tcc -Wall -Werror assignment.c -o assignment.exe`.
 
 The program runs all three parts and prints the intermediate steps. The actual execution output is saved in [output.txt](output.txt).
 
@@ -101,7 +106,7 @@ Only comparisons between severity scores are counted. Loop conditions and index 
 
 Inserting all n scores one at a time takes O(n log n) in the worst case. A bottom-up heap build takes O(n).
 
-The sorting functions copy the input to keep each run independent, so the supplied program uses O(n) extra space for each copy. Printed Heap Sort steps also create temporary slices of up to O(n) size. The space row above describes the sorting algorithms themselves, excluding these copies and display steps.
+The main function makes separate input arrays to keep each run independent, requiring O(n) extra storage when generalized to n scores. Both sorting functions modify their arrays in place, and printing does not copy the arrays. The space row above excludes these demonstration copies. This program allocates space for the seven given patients; a live hospital system would need capacity management for more arrivals.
 
 Quick Sort used fewer comparisons and swaps for this input. That does not guarantee it will always perform better. Choosing the last element as pivot can cause O(n^2) time on already sorted input.
 
